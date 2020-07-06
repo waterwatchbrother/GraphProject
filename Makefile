@@ -1,8 +1,13 @@
-search-cli: main.o
-	cc -o search-cli main.o
+cc = gcc
+prom = search-cli
+dpes = stats.h search.h base.h
+obj = main.o stats.o search.o base.o
 
-main.o:
-	cc -c main.c search.c stats.c
+$(prom): $(obj)
+	$(cc) -o $(prom) $(obj)
+
+%.o: %.c $(deps)
+	$(cc) -c $< -o $@
 
 clean:
-
+	rm -rf $(obj) $(prom)
