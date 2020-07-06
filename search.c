@@ -12,7 +12,7 @@ void DFS(int cost, int i, int t)
 		flag = 1;
 		return;
 	}
-	Adj* p = G[location[i]].next;
+	Adj *p = G[location[i]].next;
 	while (p != NULL) {
 		if (visited[location[p->code]] == 0) {
 			visited[location[p->code]] = 1;
@@ -30,8 +30,8 @@ void BFS(int start)
 {
 	int i;
 	int tmp;
-	Adj* p;
-	Queue* Q = (Queue*)malloc(sizeof(Queue));
+	Adj *p;
+	Queue *Q = (Queue *)malloc(sizeof(Queue));
 	
 	init(Q);
 	for (i = 0; i < num_point; i++) {
@@ -54,6 +54,7 @@ void BFS(int start)
 			p = p->next;
 		}
 	}
+	free(Q);
 }
 
 int get_weight(int start, int target)
@@ -61,7 +62,7 @@ int get_weight(int start, int target)
 	if (start == target) {
 		return 0;
 	}
-	Adj* p = G[location[start]].next;
+	Adj *p = G[location[start]].next;
 	while (p != NULL) {
 		if (p->code == target) {
 			return p->weight;
@@ -84,7 +85,8 @@ void Dijkstra(int start, int target)
 		sh_path[i] = start;
 	}
 
-	Adj* p;
+	t = start;
+	Adj *p;
 	for (i = 0; i < num_point; i++) {
 		if (visited[location[target]] == 1) {
 			return;
@@ -115,7 +117,7 @@ char* shortestPath(int u, int v, char algorithm[], char name[])
 {
 	int i;
 	creat_list(name);
-	char* a = "->";
+	char *a = "->";
 	char tmp[20];
 	for (i = 0; i < MAXSIZE1; i++) {
 		path[i] = '\0';
@@ -127,7 +129,7 @@ char* shortestPath(int u, int v, char algorithm[], char name[])
 			exit(0);
 		}
 		for (i = 0; i < num_sh; i++) {
-			sprintf(tmp, "%d", sh_path[i]);//itoa(sh_path[i], tmp, 10);
+			sprintf(tmp, "%d", sh_path[i]);
 			self_strcat(path, tmp);
 			if (i != num_sh - 1) {
 				self_strcat(path, a);
@@ -149,12 +151,12 @@ char* shortestPath(int u, int v, char algorithm[], char name[])
 				sh_point[i][j] = '\0';
 			}
 		}
-		sprintf(tmp, "%d", v);//itoa(v, tmp, 10);
+		sprintf(tmp, "%d", v);
 		self_strcat(sh_point[0], tmp);
 		i = v;
 		j = 1;
 		while (i != u) {
-			sprintf(tmp, "%d", sh_path[location[i]]);//itoa(sh_path[location[i]], tmp, 10);
+			sprintf(tmp, "%d", sh_path[location[i]]);
 			self_strcat(sh_point[j], tmp);
 			i = sh_path[location[i]];
 			j++;
